@@ -25,8 +25,8 @@ apply plugin: 'maven'
 repositories {
     maven { // The repo from which to get waila
         name "Mobius Repo"
-        url "https://tehnut.info/maven"
-        //url "http://mobiusstrip.eu/maven"
+        //url "https://tehnut.info/maven"
+        url "http://mobiusstrip.eu/maven"
     }
     maven { // JEI
         url "http://dvs1.progwml6.com/files/maven"
@@ -60,7 +60,7 @@ def ENV = System.getenv()
 if (ENV.DRONE_BUILD_NUMBER) {
     version += ".n" + ENV.DRONE_BUILD_NUMBER
 }
-group= "mcjty.rftoolsdim" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = "mcjty.rftoolsdim" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "rftoolsdim"
 
 sourceCompatibility = 1.8
@@ -83,21 +83,20 @@ artifacts {
     archives deobfJar
 }
 
-
 dependencies {
     deobfCompile "mezz.jei:jei_${jei_version}"
     deobfCompile "mcp.mobius.waila:Hwyla:${waila_version}"
     deobfCompile "mcjty.theoneprobe:TheOneProbe-${top_version}"
     deobfCompile "cofh:RedstoneFlux:${redstoneflux_version}"
-    deobfCompile "net.darkhax.tesla:Tesla-${tesla_version}"
+    //deobfCompile "net.darkhax.tesla:Tesla-${tesla_version}"
 
     deobfCompile "com.github.mcjty:intwheel:${intwheel_version}"
     if (!project.hasProperty("singleproject")) {
         deobfCompile "com.github.mcjty:mcjtylib:${mcjtylib_version}"
         deobfCompile "com.github.mcjty:rftools:1.12-7.58"
     } else {
-	compile project(':McJtyLib')
-	compile project(':RFTools')
+        compile project(':McJtyLib')
+        compile project(':RFTools')
     }
     compile "li.cil.oc:OpenComputers:${oc_version}"
 
@@ -110,8 +109,7 @@ jar {
     }
 }
 
-processResources
-{
+processResources {
     // this will ensure that this task is redone when the versions change.
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
@@ -119,11 +117,11 @@ processResources
     // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-                
+
         // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+        expand 'version': project.version, 'mcversion': project.minecraft.version
     }
-        
+
     // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
