@@ -103,6 +103,8 @@ public class CmdSafeDelete extends AbstractRfToolsCommand {
             }
         }
 
+        File dimensionDirectory = new File(DimensionManager.getCurrentSaveRootDirectory(), DimensionManager.createProviderFor(dim).getSaveFolder());
+
         RFToolsDim.teleportationManager.removeReceiverDestinations(world, dim);
 
         dimensionManager.removeDimension(dim);
@@ -115,7 +117,7 @@ public class CmdSafeDelete extends AbstractRfToolsCommand {
 
         if (GeneralConfiguration.dimensionFolderIsDeletedWithSafeDel) {
             try {
-                FileUtils.deleteDirectory(new File(DimensionManager.createProviderFor(dim).getSaveFolder()));
+                FileUtils.deleteDirectory(dimensionDirectory);
                 ITextComponent component = new TextComponentString("Dimension deleted and dimension folder succesfully wiped!");
                 if (sender instanceof EntityPlayer) {
                     ((EntityPlayer) sender).sendStatusMessage(component, false);

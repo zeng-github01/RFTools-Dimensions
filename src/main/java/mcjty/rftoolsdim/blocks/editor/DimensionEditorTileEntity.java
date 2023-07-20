@@ -116,7 +116,7 @@ public class DimensionEditorTileEntity extends GenericEnergyReceiverTileEntity i
             } else {
                 DimletKey key = KnownDimletConfiguration.getDimletKey(injectableItemStack);
                 Settings settings = KnownDimletConfiguration.getSettings(key);
-                if(DimletObjectMapping.getSpecial(key) == SpecialType.SPECIAL_CHEATER) {
+                if (DimletObjectMapping.getSpecial(key) == SpecialType.SPECIAL_CHEATER) {
                     ticksCost = 1;
                     rfPerTick = 0;
                 } else {
@@ -205,6 +205,8 @@ public class DimensionEditorTileEntity extends GenericEnergyReceiverTileEntity i
             return;
         }
 
+        File dimensionDirectory = new File(DimensionManager.getCurrentSaveRootDirectory(), DimensionManager.createProviderFor(id).getSaveFolder());
+
         RFToolsDim.teleportationManager.removeReceiverDestinations(getWorld(), id);
 
         dimensionManager.removeDimension(id);
@@ -217,7 +219,7 @@ public class DimensionEditorTileEntity extends GenericEnergyReceiverTileEntity i
 
         if (GeneralConfiguration.dimensionFolderIsDeletedWithSafeDel) {
             try {
-                FileUtils.deleteDirectory(new File(DimensionManager.createProviderFor(id).getSaveFolder()));
+                FileUtils.deleteDirectory(dimensionDirectory);
                 Broadcaster.broadcast(getWorld(), pos.getX(), pos.getY(), pos.getZ(), "Dimension deleted and dimension folder succesfully wiped!", 10);
             } catch (IOException e) {
                 Broadcaster.broadcast(getWorld(), pos.getX(), pos.getY(), pos.getZ(), "Dimension deleted but dimension folder could not be completely wiped!", 10);
