@@ -2,7 +2,6 @@ package mcjty.rftoolsdim.commands;
 
 import mcjty.rftoolsdim.RFToolsDim;
 import mcjty.rftoolsdim.config.GeneralConfiguration;
-import mcjty.rftoolsdim.dimensions.DimensionInformation;
 import mcjty.rftoolsdim.dimensions.DimensionStorage;
 import mcjty.rftoolsdim.dimensions.RfToolsDimensionManager;
 import net.minecraft.command.ICommandSender;
@@ -19,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class CmdSafeDelete extends AbstractRfToolsCommand {
+
     @Override
     public String getHelp() {
         return "<dimension>";
@@ -35,11 +35,6 @@ public class CmdSafeDelete extends AbstractRfToolsCommand {
     }
 
     @Override
-    public boolean isClientSide() {
-        return false;
-    }
-
-    @Override
     public void execute(ICommandSender sender, String[] args) {
 
         if (!(GeneralConfiguration.playersCanDeleteDimensions || sender.canUseCommand(3, getCommand()))) {
@@ -51,7 +46,6 @@ public class CmdSafeDelete extends AbstractRfToolsCommand {
             }
             return;
         }
-
 
         if (args.length < 2) {
             ITextComponent component = new TextComponentString(TextFormatting.RED + "The dimension parameter is missing!");
@@ -97,33 +91,14 @@ public class CmdSafeDelete extends AbstractRfToolsCommand {
         }
 
         if (!sender.canUseCommand(3, "safedel")) {
-            DimensionInformation information = dimensionManager.getDimensionInformation(dim);
-            if (information.getOwner() == null) {
-                ITextComponent component = new TextComponentString(TextFormatting.RED + "This dimension has no owner. You cannot delete it!");
-                if (sender instanceof EntityPlayer) {
-                    ((EntityPlayer) sender).sendStatusMessage(component, false);
-                } else {
-                    sender.sendMessage(component);
-                }
-                return;
-            }
             if (!(sender instanceof EntityPlayerMP)) {
                 ITextComponent component = new TextComponentString(TextFormatting.RED + "This command must be run as a player!");
-                if (sender instanceof EntityPlayer) {
-                    ((EntityPlayer) sender).sendStatusMessage(component, false);
-                } else {
-                    sender.sendMessage(component);
-                }
+                sender.sendMessage(component);
                 return;
             }
-            EntityPlayerMP entityPlayerMP = (EntityPlayerMP) sender;
-            if (!information.getOwner().equals(entityPlayerMP.getGameProfile().getId())) {
+            if (!((EntityPlayerMP) sender).getGameProfile().getId().equals(dimensionManager.getDimensionInformation(dim).getOwner())) {
                 ITextComponent component = new TextComponentString(TextFormatting.RED + "You are not the owner of this dimension. You cannot delete it!");
-                if (sender instanceof EntityPlayer) {
-                    ((EntityPlayer) sender).sendStatusMessage(component, false);
-                } else {
-                    sender.sendMessage(component);
-                }
+                ((EntityPlayer) sender).sendStatusMessage(component, false);
                 return;
             }
         }
@@ -139,9 +114,8 @@ public class CmdSafeDelete extends AbstractRfToolsCommand {
         dimensionStorage.save();
 
         if (GeneralConfiguration.dimensionFolderIsDeletedWithSafeDel) {
-            File rootDirectory = DimensionManager.getCurrentSaveRootDirectory();
             try {
-                FileUtils.deleteDirectory(new File(rootDirectory.getPath() + File.separator + "RFTOOLS" + dim));
+                FileUtils.deleteDirectory(new File(DimensionManager.createProviderFor(dim).getSaveFolder()));
                 ITextComponent component = new TextComponentString("Dimension deleted and dimension folder succesfully wiped!");
                 if (sender instanceof EntityPlayer) {
                     ((EntityPlayer) sender).sendStatusMessage(component, false);

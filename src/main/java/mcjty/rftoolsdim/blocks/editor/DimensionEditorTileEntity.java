@@ -216,9 +216,8 @@ public class DimensionEditorTileEntity extends GenericEnergyReceiverTileEntity i
         dimensionStorage.save();
 
         if (GeneralConfiguration.dimensionFolderIsDeletedWithSafeDel) {
-            File rootDirectory = DimensionManager.getCurrentSaveRootDirectory();
             try {
-                FileUtils.deleteDirectory(new File(rootDirectory.getPath() + File.separator + "RFTOOLS" + id));
+                FileUtils.deleteDirectory(new File(DimensionManager.createProviderFor(id).getSaveFolder()));
                 Broadcaster.broadcast(getWorld(), pos.getX(), pos.getY(), pos.getZ(), "Dimension deleted and dimension folder succesfully wiped!", 10);
             } catch (IOException e) {
                 Broadcaster.broadcast(getWorld(), pos.getX(), pos.getY(), pos.getZ(), "Dimension deleted but dimension folder could not be completely wiped!", 10);

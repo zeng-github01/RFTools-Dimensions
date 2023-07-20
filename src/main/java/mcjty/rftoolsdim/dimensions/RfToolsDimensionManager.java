@@ -9,11 +9,7 @@ import mcjty.rftoolsdim.dimensions.description.DimensionDescriptor;
 import mcjty.rftoolsdim.dimensions.world.GenericWorldProvider;
 import mcjty.rftoolsdim.items.ModItems;
 import mcjty.rftoolsdim.items.PhasedFieldGeneratorItem;
-import mcjty.rftoolsdim.network.DimensionSyncPacket;
-import mcjty.rftoolsdim.network.PacketRegisterDimensions;
-import mcjty.rftoolsdim.network.PacketSyncDimensionInfo;
-import mcjty.rftoolsdim.network.PacketSyncRules;
-import mcjty.rftoolsdim.network.RFToolsDimMessages;
+import mcjty.rftoolsdim.network.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.entity.Entity;
@@ -63,12 +59,12 @@ public class RfToolsDimensionManager extends WorldSavedData {
         }
 
         WorldClient world = Minecraft.getMinecraft().world;
-        GenericWorldProvider provider = (world != null && world.provider instanceof GenericWorldProvider) ? (GenericWorldProvider)world.provider : null;
+        GenericWorldProvider provider = (world != null && world.provider instanceof GenericWorldProvider) ? (GenericWorldProvider) world.provider : null;
         for (Map.Entry<Integer, DimensionInformation> entry : dimInfo.entrySet()) {
             int id = entry.getKey();
             DimensionInformation info = entry.getValue();
             dimensionInformation.put(id, info);
-            if(provider != null && provider.getDimension() == id) {
+            if (provider != null && provider.getDimension() == id) {
                 provider.setDimensionInformation(info);
             }
         }
@@ -143,7 +139,7 @@ public class RfToolsDimensionManager extends WorldSavedData {
                 // Check if this player has a valid PFG but don't consume energy.
                 int cost = 0;
                 if (PowerConfiguration.dimensionDifficulty != -1) {
-                    DimensionInformation information = ((GenericWorldProvider)world.provider).getDimensionInformation();
+                    DimensionInformation information = ((GenericWorldProvider) world.provider).getDimensionInformation();
                     cost = information.getActualRfCost();
                     if (cost == 0) {
                         DimensionDescriptor descriptor = information.getDescriptor();
@@ -213,7 +209,6 @@ public class RfToolsDimensionManager extends WorldSavedData {
     }
 
 
-
     public static void unfreezeDimension(World world) {
         WorldServer worldServer = (WorldServer) world;
         for (Chunk chunk : worldServer.getChunkProvider().getLoadedChunks()) {
@@ -230,7 +225,7 @@ public class RfToolsDimensionManager extends WorldSavedData {
 
     public static boolean checkValidPhasedFieldGenerator(EntityPlayer player, boolean consume, int tickCost) {
         InventoryPlayer inventory = player.inventory;
-        for (int i = 0 ; i < InventoryPlayer.getHotbarSize() ; i++) {
+        for (int i = 0; i < InventoryPlayer.getHotbarSize(); i++) {
             ItemStack slot = inventory.getStackInSlot(i);
             if (!slot.isEmpty() && slot.getItem() == ModItems.phasedFieldGeneratorItem) {
                 PhasedFieldGeneratorItem pfg = (PhasedFieldGeneratorItem) slot.getItem();
@@ -294,9 +289,9 @@ public class RfToolsDimensionManager extends WorldSavedData {
         if (!DimensionManager.isDimensionRegistered(id)) {
             DimensionManager.registerDimension(id, ModDimensions.rftoolsType);
         }
-        if(DimensionManager.getWorld(id) == null) {
+        if (DimensionManager.getWorld(id) == null) {
             File chunkDir = new File(DimensionManager.getCurrentSaveRootDirectory(), DimensionManager.createProviderFor(id).getSaveFolder());
-            if(ForgeChunkManager.savedWorldHasForcedChunkTickets(chunkDir)) {
+            if (ForgeChunkManager.savedWorldHasForcedChunkTickets(chunkDir)) {
                 DimensionManager.initDimension(id);
             }
         }
@@ -444,7 +439,7 @@ public class RfToolsDimensionManager extends WorldSavedData {
         dimensionInformation.clear();
         reclaimedIds.clear();
         NBTTagList lst = tagCompound.getTagList("dimensions", Constants.NBT.TAG_COMPOUND);
-        for (int i = 0 ; i < lst.tagCount() ; i++) {
+        for (int i = 0; i < lst.tagCount(); i++) {
             NBTTagCompound tc = lst.getCompoundTagAt(i);
             int id = tc.getInteger("id");
             DimensionDescriptor descriptor = new DimensionDescriptor(tc);
@@ -465,7 +460,7 @@ public class RfToolsDimensionManager extends WorldSavedData {
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
         NBTTagList lst = new NBTTagList();
-        for (Map.Entry<Integer,DimensionDescriptor> me : dimensions.entrySet()) {
+        for (Map.Entry<Integer, DimensionDescriptor> me : dimensions.entrySet()) {
             NBTTagCompound tc = new NBTTagCompound();
 
             Integer id = me.getKey();
@@ -480,7 +475,7 @@ public class RfToolsDimensionManager extends WorldSavedData {
 
         List<Integer> ids = new ArrayList<>(reclaimedIds);
         int[] lstIds = new int[ids.size()];
-        for (int i = 0 ; i < ids.size() ; i++) {
+        for (int i = 0; i < ids.size(); i++) {
             lstIds[i] = ids.get(i);
         }
         tagCompound.setIntArray("reclaimedIds", lstIds);
