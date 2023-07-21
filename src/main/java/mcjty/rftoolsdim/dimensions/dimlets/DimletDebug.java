@@ -26,7 +26,7 @@ public class DimletDebug {
         Block block = entry.getValue().getBlock();
         if (block != null) {
             ResourceLocation nameForObject = Block.REGISTRY.getNameForObject(block);
-            String mod = nameForObject.getResourceDomain();
+            String mod = nameForObject.getNamespace();
             DimletKey key = new DimletKey(DimletType.DIMLET_LIQUID, block.getRegistryName() + "@0");
             Settings settings = DimletRules.getSettings(key, mod);
             Logging.log(key + ": " + settings.toString());
@@ -43,7 +43,7 @@ public class DimletDebug {
         }
 
         Set<Filter.Feature> features = KnownDimletConfiguration.getBlockFeatures(block);
-        String mod = Block.REGISTRY.getNameForObject(block).getResourceDomain();
+        String mod = Block.REGISTRY.getNameForObject(block).getNamespace();
 
         for (IBlockState state : block.getBlockState().getValidStates()) {
             int meta = state.getBlock().getMetaFromState(state);

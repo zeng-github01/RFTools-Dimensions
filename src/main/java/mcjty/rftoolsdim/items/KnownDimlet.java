@@ -145,9 +145,9 @@ public class KnownDimlet extends GenericRFToolsItem {
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack itemStack) {
+    public String getTranslationKey(ItemStack itemStack) {
         DimletType type = DimletType.values()[itemStack.getItemDamage()];
-        return super.getUnlocalizedName(itemStack) + "_" + type.dimletType.getName().toLowerCase();
+        return super.getTranslationKey(itemStack) + "_" + type.dimletType.getName().toLowerCase();
     }
 
     @Override

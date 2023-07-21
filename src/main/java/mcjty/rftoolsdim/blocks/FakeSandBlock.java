@@ -22,7 +22,7 @@ public class FakeSandBlock extends Block {
     public FakeSandBlock() {
         super(Material.SAND);
         setHardness(0.5f);
-        setUnlocalizedName(RFToolsDim.MODID + "." + "fake_sand");
+        setTranslationKey(RFToolsDim.MODID + "." + "fake_sand");
         setRegistryName("fake_sand");
 //        setLightLevel(0.6f);
 //        setCreativeTab(RFToolsDim.setup.getTab());

@@ -17,7 +17,7 @@ public class DimensionalBlankBlock extends Block {
         super(Material.ROCK);
         setHardness(2.0f);
         setResistance(4.0f);
-        setUnlocalizedName(RFToolsDim.MODID + "." + "dimensional_blank_block");
+        setTranslationKey(RFToolsDim.MODID + "." + "dimensional_blank_block");
         setRegistryName("dimensional_blank_block");
         setLightLevel(0.6f);
         setCreativeTab(RFToolsDim.setup.getTab());

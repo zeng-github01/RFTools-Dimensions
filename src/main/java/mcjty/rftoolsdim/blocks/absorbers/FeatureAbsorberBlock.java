@@ -119,7 +119,7 @@ public class FeatureAbsorberBlock extends GenericRFToolsBlock<FeatureAbsorberTil
 
     @SideOnly(Side.CLIENT)
     @Override
-    public BlockRenderLayer getBlockLayer() {
+    public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT;
     }
 

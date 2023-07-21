@@ -22,7 +22,7 @@ public class FakeGravelBlock extends Block {
     public FakeGravelBlock() {
         super(Material.GROUND);
         setHardness(0.6f);
-        setUnlocalizedName(RFToolsDim.MODID + "." + "fake_gravel");
+        setTranslationKey(RFToolsDim.MODID + "." + "fake_gravel");
         setRegistryName("fake_gravel");
 //        setLightLevel(0.6f);
 //        setCreativeTab(RFToolsDim.setup.getTab());

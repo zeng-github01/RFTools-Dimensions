@@ -600,7 +600,7 @@ public class DimensionInformation implements IDimensionInformation {
         Block block = state.getBlock();
 
         String suffix = "";
-        if ("chisel".equals(block.getRegistryName().getResourceDomain()) && ModSetup.chisel) {
+        if ("chisel".equals(block.getRegistryName().getNamespace()) && ModSetup.chisel) {
             // Special case for chisel as it has the same name as the base block for all its variants
             String readableName = ChiselCompat.getReadableName(state);
             if (readableName != null) {

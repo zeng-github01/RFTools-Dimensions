@@ -27,7 +27,7 @@ public class UpsidedownWorld extends WorldServer {
     @Override
     public int getHeight(int x, int z) {
         // This needs to be done differently
-        Chunk chunk = worldObj.getChunkFromChunkCoords(x >> 4, z >> 4);
+        Chunk chunk = worldObj.getChunk(x >> 4, z >> 4);
         int y = 0;
         for (y = 0; y < 128; y++) {
             IBlockState blockState = chunk.getBlockState(x & 15, y, z & 15);
@@ -82,13 +82,13 @@ public class UpsidedownWorld extends WorldServer {
     }
 
     @Override
-    public Chunk getChunkFromBlockCoords(BlockPos pos) {
-        return worldObj.getChunkFromBlockCoords(pos);
+    public Chunk getChunk(BlockPos pos) {
+        return worldObj.getChunk(pos);
     }
 
     @Override
-    public Chunk getChunkFromChunkCoords(int chunkX, int chunkZ) {
-        return worldObj.getChunkFromChunkCoords(chunkX, chunkZ);
+    public Chunk getChunk(int chunkX, int chunkZ) {
+        return worldObj.getChunk(chunkX, chunkZ);
     }
 
     @Override

@@ -31,7 +31,7 @@ public class FakeWaterBlock extends Block {
         super(Material.GLASS);
         setHardness(100.0f);
         setLightOpacity(3);
-        setUnlocalizedName(RFToolsDim.MODID + "." + "fake_water");
+        setTranslationKey(RFToolsDim.MODID + "." + "fake_water");
         setRegistryName("fake_water");
 //        setLightLevel(0.6f);
 //        setCreativeTab(RFToolsDim.setup.getTab());
@@ -91,7 +91,7 @@ public class FakeWaterBlock extends Block {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public BlockRenderLayer getBlockLayer() {
+    public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.TRANSLUCENT;
     }
 

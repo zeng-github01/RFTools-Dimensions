@@ -33,7 +33,7 @@ public class DimletControlCircuitItem extends GenericRFToolsItem {
         ModelResourceLocation models[] = new ModelResourceLocation[7];
         for (int i = 0 ; i <= 6 ; i++) {
             ResourceLocation registryName = getRegistryName();
-            registryName = new ResourceLocation(registryName.getResourceDomain(), registryName.getResourcePath() + i);
+            registryName = new ResourceLocation(registryName.getNamespace(), registryName.getPath() + i);
             models[i] = new ModelResourceLocation(registryName, "inventory");
             ModelBakery.registerItemVariants(this, models[i]);
         }
@@ -58,8 +58,8 @@ public class DimletControlCircuitItem extends GenericRFToolsItem {
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack itemStack) {
-        return super.getUnlocalizedName(itemStack) + itemStack.getItemDamage();
+    public String getTranslationKey(ItemStack itemStack) {
+        return super.getTranslationKey(itemStack) + itemStack.getItemDamage();
     }
 
     @Override

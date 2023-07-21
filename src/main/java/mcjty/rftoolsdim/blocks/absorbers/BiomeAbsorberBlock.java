@@ -108,7 +108,7 @@ public class BiomeAbsorberBlock extends GenericRFToolsBlock<BiomeAbsorberTileEnt
 
     @SideOnly(Side.CLIENT)
     @Override
-    public BlockRenderLayer getBlockLayer() {
+    public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT;
     }
 

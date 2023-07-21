@@ -107,7 +107,7 @@ public class TerrainAbsorberBlock extends GenericRFToolsBlock<TerrainAbsorberTil
 
     @SideOnly(Side.CLIENT)
     @Override
-    public BlockRenderLayer getBlockLayer() {
+    public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT;
     }
 

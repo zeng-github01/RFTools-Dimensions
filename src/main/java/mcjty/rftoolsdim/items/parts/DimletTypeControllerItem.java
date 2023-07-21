@@ -61,8 +61,8 @@ public class DimletTypeControllerItem extends GenericRFToolsItem {
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack itemStack) {
-        return super.getUnlocalizedName(itemStack) + calculateUnlocalizedNameSuffix(DimletType.values()[itemStack.getItemDamage()]);
+    public String getTranslationKey(ItemStack itemStack) {
+        return super.getTranslationKey(itemStack) + calculateUnlocalizedNameSuffix(DimletType.values()[itemStack.getItemDamage()]);
     }
 
     @Override

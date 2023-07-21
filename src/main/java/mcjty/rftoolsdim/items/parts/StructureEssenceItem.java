@@ -51,8 +51,8 @@ public class StructureEssenceItem extends GenericRFToolsItem {
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack itemStack) {
-        return super.getUnlocalizedName(itemStack) + calculateUnlocalizedNameSuffix(StructureType.values()[itemStack.getItemDamage()]);
+    public String getTranslationKey(ItemStack itemStack) {
+        return super.getTranslationKey(itemStack) + calculateUnlocalizedNameSuffix(StructureType.values()[itemStack.getItemDamage()]);
     }
 
     @Override

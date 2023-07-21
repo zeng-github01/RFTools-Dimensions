@@ -39,7 +39,7 @@ public class PhasedFieldGeneratorItem extends GenericRFToolsItem implements IEne
     public void initModel() {
         for (int i = 0 ; i <= 8 ; i++) {
             ResourceLocation registryName = getRegistryName();
-            registryName = new ResourceLocation(registryName.getResourceDomain(), registryName.getResourcePath() + i);
+            registryName = new ResourceLocation(registryName.getNamespace(), registryName.getPath() + i);
             ModelBakery.registerItemVariants(this, new ModelResourceLocation(registryName, "inventory"));
 //            ModelBakery.addVariantName(this, getRegistryName() + i);
         }
@@ -57,7 +57,7 @@ public class PhasedFieldGeneratorItem extends GenericRFToolsItem implements IEne
                 level = 8;
             }
             ResourceLocation registryName = getRegistryName();
-            registryName = new ResourceLocation(registryName.getResourceDomain(), registryName.getResourcePath() + (8 - level));
+            registryName = new ResourceLocation(registryName.getNamespace(), registryName.getPath() + (8 - level));
             return new ModelResourceLocation(registryName, "inventory");
         });
     }

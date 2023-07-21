@@ -175,7 +175,7 @@ public class RfToolsDimensionManager extends WorldSavedData {
         for (int i1 = i; i1 <= j; ++i1) {
             for (int j1 = k; j1 <= l; ++j1) {
                 if (world.getChunkProvider().getLoadedChunk(i1, j1) != null) {
-                    Chunk chunk = world.getChunkFromChunkCoords(i1, j1);
+                    Chunk chunk = world.getChunk(i1, j1);
                     getEntitiesInSphere(chunk, c, radius, tokeep);
                 }
             }

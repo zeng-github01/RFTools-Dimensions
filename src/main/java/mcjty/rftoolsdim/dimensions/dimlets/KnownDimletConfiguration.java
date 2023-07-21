@@ -202,7 +202,7 @@ public class KnownDimletConfiguration {
         ResourceLocation registryName = biome.getRegistryName();
         if (registryName != null) {
             DimletKey key = new DimletKey(DimletType.DIMLET_BIOME, registryName.toString());
-            initDimlet(key, biome.getRegistryName().getResourceDomain());
+            initDimlet(key, biome.getRegistryName().getNamespace());
         }
     }
 
@@ -214,7 +214,7 @@ public class KnownDimletConfiguration {
             EntityEntry entry = ForgeRegistries.ENTITIES.getValue(new ResourceLocation(id));
             if (entry != null) {
                 DimletKey key = new DimletKey(DimletType.DIMLET_MOB, id);
-                initDimlet(key, entry.getRegistryName().getResourceDomain());
+                initDimlet(key, entry.getRegistryName().getNamespace());
             }
         }
     }
@@ -227,7 +227,7 @@ public class KnownDimletConfiguration {
                 if (block != null) {
                     ResourceLocation nameForObject = Block.REGISTRY.getNameForObject(block);
                     if (nameForObject != null) {
-                        String mod = nameForObject.getResourceDomain();
+                        String mod = nameForObject.getNamespace();
                         DimletKey key = new DimletKey(DimletType.DIMLET_LIQUID, block.getRegistryName() + "@0");
                         initDimlet(key, mod);
                     }
@@ -251,7 +251,7 @@ public class KnownDimletConfiguration {
         Set<Filter.Feature> features = getBlockFeatures(block);
 
         ResourceLocation nameForObject = Block.REGISTRY.getNameForObject(block);
-        String mod = nameForObject.getResourceDomain();
+        String mod = nameForObject.getNamespace();
 
         if (Item.getItemFromBlock(block) != null) {      // Protection
             for (IBlockState state : block.getBlockState().getValidStates()) {
@@ -315,7 +315,7 @@ public class KnownDimletConfiguration {
         Class<? extends Entity> entityClass = entry == null ? null : entry.getEntityClass();
         if (entry != null) {
             DimletKey key = new DimletKey(DimletType.DIMLET_MOB, id);
-            String mod = entry.getRegistryName().getResourceDomain();
+            String mod = entry.getRegistryName().getNamespace();
             Settings settings = DimletRules.getSettings(key, mod);
 
             String resourceName = EntityTools.findEntityIdByClass(entityClass);

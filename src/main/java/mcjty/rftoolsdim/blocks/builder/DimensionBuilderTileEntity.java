@@ -58,8 +58,6 @@ public class DimensionBuilderTileEntity extends GenericEnergyReceiverTileEntity 
         };
     }
 
-
-
     @Override
     public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
         int oldstate = state;
@@ -155,9 +153,9 @@ public class DimensionBuilderTileEntity extends GenericEnergyReceiverTileEntity 
                 rf = maxEnergy;
             }
             if (Logging.debugMode) {
-	            counter--;
-	            if (counter < 0) {
-	                counter = 20;
+                counter--;
+                if (counter < 0) {
+                    counter = 20;
                     Logging.log("#################### id:" + id + ", rf:" + rf + ", energy:" + energy + ", max:" + maxEnergy);
                 }
             }
@@ -192,7 +190,6 @@ public class DimensionBuilderTileEntity extends GenericEnergyReceiverTileEntity 
             }
         }
         errorMode = OK;
-
 
         int createCost = tagCompound.getInteger("rfCreateCost");
         createCost = (int) (createCost * (2.0f - getInfusedFactor()) / 2.0f);

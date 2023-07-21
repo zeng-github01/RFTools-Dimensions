@@ -25,7 +25,7 @@ public abstract class AbstractDirectionalBlock extends Block {
 
     public AbstractDirectionalBlock(String name) {
         super(Material.ROCK);
-        setUnlocalizedName(RFToolsDim.MODID + "." + name);
+        setTranslationKey(RFToolsDim.MODID + "." + name);
         setRegistryName(name);
         setCreativeTab(RFToolsDim.setup.getTab());
         McJtyRegister.registerLater(this, RFToolsDim.instance, ItemBlock::new);
@@ -52,7 +52,7 @@ public abstract class AbstractDirectionalBlock extends Block {
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState().withProperty(FACING, EnumFacing.getFront(meta & 7));
+        return getDefaultState().withProperty(FACING, EnumFacing.byIndex(meta & 7));
     }
 
     @Override

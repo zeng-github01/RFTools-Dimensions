@@ -108,7 +108,7 @@ public class LiquidAbsorberBlock extends GenericRFToolsBlock<LiquidAbsorberTileE
 
     @SideOnly(Side.CLIENT)
     @Override
-    public BlockRenderLayer getBlockLayer() {
+    public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT;
     }
 
