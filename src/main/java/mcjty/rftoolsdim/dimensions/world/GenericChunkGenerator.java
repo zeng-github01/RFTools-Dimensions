@@ -212,84 +212,97 @@ public class GenericChunkGenerator implements IChunkGenerator {
 
         this.worldType = world.getWorldInfo().getTerrainType();
 
-        if (dimensionInformation.getTerrainType() == TerrainType.TERRAIN_AMPLIFIED) {
-            worldType = WorldType.AMPLIFIED;
-        } else if (dimensionInformation.getTerrainType() == TerrainType.TERRAIN_NORMAL && !WorldgenConfiguration.normalTerrainInheritsOverworld) {
-            worldType = WorldType.DEFAULT;
-        } else if (dimensionInformation.getTerrainType() == TerrainType.TERRAIN_FLAT) {
-            worldType = WorldType.FLAT;
+        if (dimensionInformation != null){
+            if (dimensionInformation.getTerrainType() == TerrainType.TERRAIN_AMPLIFIED) {
+                worldType = WorldType.AMPLIFIED;
+            } else if (dimensionInformation.getTerrainType() == TerrainType.TERRAIN_NORMAL && !WorldgenConfiguration.normalTerrainInheritsOverworld) {
+                worldType = WorldType.DEFAULT;
+            } else if (dimensionInformation.getTerrainType() == TerrainType.TERRAIN_FLAT) {
+                worldType = WorldType.FLAT;
+            }
+        }
+        else
+        {
+            worldType = null;
         }
 
         this.seed = seed;
 //        System.out.println("GenericChunkGenerator: seed = " + seed);
         this.rand = new Random((seed + 516) * 314);
 //        this.rand = new Random(seed);
-
-        switch (dimensionInformation.getTerrainType()) {
-            case TERRAIN_VOID:
-                terrainGenerator = new VoidTerrainGenerator();
-                break;
-            case TERRAIN_FLAT:
-                terrainGenerator = new FlatTerrainGenerator((byte) 63);
-                break;
-            case TERRAIN_AMPLIFIED:
-                terrainGenerator = new AmplifiedTerrainGenerator();
-                break;
-            case TERRAIN_NEARLANDS:
-                terrainGenerator = new NearlandsTerrainGenerator();
-                break;
-            case TERRAIN_NORMAL:
-                terrainGenerator = new NormalTerrainGenerator();
-                break;
-            case TERRAIN_INVERTIGO:
-                terrainGenerator = new UpsideDownTerrainGenerator();
-                break;
-            case TERRAIN_ISLAND:
-                terrainGenerator = new IslandTerrainGenerator(IslandTerrainGenerator.NORMAL);
-                break;
-            case TERRAIN_ISLANDS:
-                terrainGenerator = new IslandTerrainGenerator(IslandTerrainGenerator.ISLANDS);
-                break;
-            case TERRAIN_CHAOTIC:
-                terrainGenerator = new IslandTerrainGenerator(IslandTerrainGenerator.CHAOTIC);
-                break;
-            case TERRAIN_PLATEAUS:
-                terrainGenerator = new IslandTerrainGenerator(IslandTerrainGenerator.PLATEAUS);
-                break;
-            case TERRAIN_GRID:
-                terrainGenerator = new GridTerrainGenerator();
-                break;
-            case TERRAIN_CAVERN:
-                terrainGenerator = new CavernTerrainGenerator(null);
-                break;
-            case TERRAIN_LOW_CAVERN:
-                terrainGenerator = new CavernTerrainGenerator(CavernTerrainGenerator.CavernHeight.HEIGHT_128);
-                break;
-            case TERRAIN_FLOODED_CAVERN:
-                terrainGenerator = new CavernTerrainGenerator(CavernTerrainGenerator.CavernHeight.HEIGHT_128);
-                break;
-            case TERRAIN_LIQUID:
-                terrainGenerator = new LiquidTerrainGenerator();
-                break;
-            case TERRAIN_SOLID:
-                terrainGenerator = new FlatTerrainGenerator((byte) 127);
-                break;
-            case TERRAIN_WAVES:
-                terrainGenerator = new WavesTerrainGenerator(false);
-                break;
-            case TERRAIN_FILLEDWAVES:
-                terrainGenerator = new WavesTerrainGenerator(true);
-                break;
-            case TERRAIN_ROUGH:
-                terrainGenerator = new RoughTerrainGenerator(false);
-                break;
-            case TERRAIN_LOSTCITIES:
-                terrainGenerator = new LostCitiesTerrainGenerator();
-                break;
-            default:
-                terrainGenerator = new VoidTerrainGenerator();
-                break;
+        if (dimensionInformation != null){
+            switch (dimensionInformation.getTerrainType()) {
+                case TERRAIN_VOID:
+                    terrainGenerator = new VoidTerrainGenerator();
+                    break;
+                case TERRAIN_FLAT:
+                    terrainGenerator = new FlatTerrainGenerator((byte) 63);
+                    break;
+                case TERRAIN_AMPLIFIED:
+                    terrainGenerator = new AmplifiedTerrainGenerator();
+                    break;
+                case TERRAIN_NEARLANDS:
+                    terrainGenerator = new NearlandsTerrainGenerator();
+                    break;
+                case TERRAIN_NORMAL:
+                    terrainGenerator = new NormalTerrainGenerator();
+                    break;
+                case TERRAIN_INVERTIGO:
+                    terrainGenerator = new UpsideDownTerrainGenerator();
+                    break;
+                case TERRAIN_ISLAND:
+                    terrainGenerator = new IslandTerrainGenerator(IslandTerrainGenerator.NORMAL);
+                    break;
+                case TERRAIN_ISLANDS:
+                    terrainGenerator = new IslandTerrainGenerator(IslandTerrainGenerator.ISLANDS);
+                    break;
+                case TERRAIN_CHAOTIC:
+                    terrainGenerator = new IslandTerrainGenerator(IslandTerrainGenerator.CHAOTIC);
+                    break;
+                case TERRAIN_PLATEAUS:
+                    terrainGenerator = new IslandTerrainGenerator(IslandTerrainGenerator.PLATEAUS);
+                    break;
+                case TERRAIN_GRID:
+                    terrainGenerator = new GridTerrainGenerator();
+                    break;
+                case TERRAIN_CAVERN:
+                    terrainGenerator = new CavernTerrainGenerator(null);
+                    break;
+                case TERRAIN_LOW_CAVERN:
+                    terrainGenerator = new CavernTerrainGenerator(CavernTerrainGenerator.CavernHeight.HEIGHT_128);
+                    break;
+                case TERRAIN_FLOODED_CAVERN:
+                    terrainGenerator = new CavernTerrainGenerator(CavernTerrainGenerator.CavernHeight.HEIGHT_128);
+                    break;
+                case TERRAIN_LIQUID:
+                    terrainGenerator = new LiquidTerrainGenerator();
+                    break;
+                case TERRAIN_SOLID:
+                    terrainGenerator = new FlatTerrainGenerator((byte) 127);
+                    break;
+                case TERRAIN_WAVES:
+                    terrainGenerator = new WavesTerrainGenerator(false);
+                    break;
+                case TERRAIN_FILLEDWAVES:
+                    terrainGenerator = new WavesTerrainGenerator(true);
+                    break;
+                case TERRAIN_ROUGH:
+                    terrainGenerator = new RoughTerrainGenerator(false);
+                    break;
+                case TERRAIN_LOSTCITIES:
+                    terrainGenerator = new LostCitiesTerrainGenerator();
+                    break;
+                default:
+                    terrainGenerator = new VoidTerrainGenerator();
+                    break;
+            }
         }
+        else
+        {
+            terrainGenerator = new VoidTerrainGenerator();
+        }
+
+
 
         terrainGenerator.setup(world, this);
     }

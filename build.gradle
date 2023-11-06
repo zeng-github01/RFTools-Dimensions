@@ -33,6 +33,9 @@ repositories {
     maven { url "https://maven.blamejared.com/" } // Tesla
     maven { url "https://maven.k-4u.nl/" } // intwheel / mcjtylib / rftools
     maven { url "https://maven.cil.li/" } // OpenComputers
+    maven {
+        url "https://cursemaven.com"
+    }
 }
 
 dependencies {
@@ -48,10 +51,11 @@ dependencies {
     if (findProject(":Hwyla") != null) compile project(":Hwyla")
     else deobfProvided "mcp.mobius.waila:Hwyla:${hwyla_version}"
 
-    deobfCompile "com.github.mcjty:mcjtylib:${mcjtylib_version}"
+//    deobfCompile "com.github.mcjty:mcjtylib:${mcjtylib_version}"
+    deobfCompile "curse.maven:mcjtylib-233105:2745846"
 
     if (findProject(":RFTools") != null) compile project(":RFTools")
-    else deobfCompile "com.github.mcjty:rftools:${rftools_version}"
+    else deobfCompile "curse.maven:rftools-224641:2861573"
 }
 
 processResources {
